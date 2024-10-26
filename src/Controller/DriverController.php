@@ -2,16 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\Driver;
 use App\Entity\Team;
-use App\Form\TeamType;
+use App\Form\DriverType;
 
-class TeamController extends BaseController
+class DriverController extends BaseController
 {
     public function __construct()
     {
-        $this->entity = new Team();
-        $this->formType = TeamType::class;
-        $this->entityType = Team::class;
+        $this->entity = new Driver();
+        $this->formType = DriverType::class;
+        $this->entityType = Driver::class;
     }
 
     protected function create($em, $arr)
@@ -19,12 +20,13 @@ class TeamController extends BaseController
         $this->entity->setName($arr['name']);
         $this->entity->setFullName($arr['fullName']);
         $this->entity->setUrlImage($arr['urlImage']);
-        $this->entity->setEngine($arr['engine']);
-        $this->entity->setBase($arr['base']);
+        $this->entity->setChampionships($arr['championships']);
+        $this->entity->setCarNumber($arr['carNumber']);
         $this->entity->setVictory($arr['victory']);
         $this->entity->setPodium($arr['podium']);
         $this->entity->setPolePosition($arr['polePosition']);
-        $this->entity->setYearFoundation(\DateTimeImmutable::createFromFormat("Y-m-d", $arr['yearFoundation']));
+        $this->entity->setBirth(\DateTimeImmutable::createFromFormat("Y-m-d", $arr['birth']));
+        $this->entity->setTeam($em->find(Team::class, $arr['team']));
     }
 
     protected function update($em, $arr)
@@ -41,12 +43,12 @@ class TeamController extends BaseController
             $this->entity->setUrlImage($arr['urlImage']);
         }
 
-        if (!empty($arr['engine'])) {
-            $this->entity->setEngine($arr['engine']);
+        if (!empty($arr['championships'])) {
+            $this->entity->setChampionships($arr['championships']);
         }
 
-        if (!empty($arr['base'])) {
-            $this->entity->setBase($arr['base']);
+        if (!empty($arr['carNumber'])) {
+            $this->entity->setCarNumber($arr['carNumber']);
         }
 
         if (!empty($arr['victory'])) {
@@ -61,8 +63,12 @@ class TeamController extends BaseController
             $this->entity->setPolePosition($arr['polePosition']);
         }
 
-        if (!empty($arr['yearFoundation'])) {
-            $this->entity->setYearFoundation(\DateTimeImmutable::createFromFormat("Y-m-d", $arr['yearFoundation']));
+        if (!empty($arr['birth'])) {
+            $this->entity->setBirth(\DateTimeImmutable::createFromFormat("Y-m-d", $arr['birth']));
+        }
+
+        if (!empty($arr['team'])) {
+            $this->entity->setTeam($em->find(Team::class, $arr['team']));
         }
     }
 }

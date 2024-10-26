@@ -2,30 +2,32 @@
 
 namespace App\Repository;
 
-use App\Entity\Team;
+use App\Entity\GrandPix;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Team|null find($id, $lockMode = null, $lockVersion = null)
- * @method Team|null findOneBy(array $criteria, array $orderBy = null)
- * @method Team[]    findAll()
- * @method Team[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @extends ServiceEntityRepository<GrandPix>
+ *
+ * @method GrandPix|null find($id, $lockMode = null, $lockVersion = null)
+ * @method GrandPix|null findOneBy(array $criteria, array $orderBy = null)
+ * @method GrandPix[]    findAll()
+ * @method GrandPix[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TeamRepository extends ServiceEntityRepository
+class GrandPixRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Team::class);
+        parent::__construct($registry, GrandPix::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(Team $entity, bool $flush = true): void
+    public function add(GrandPix $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -37,7 +39,7 @@ class TeamRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(Team $entity, bool $flush = true): void
+    public function remove(GrandPix $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {

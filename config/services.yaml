@@ -4,9 +4,6 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    username: api@user.com
-    password: senha123
-    token: 6250fcac9211f
     debug_toolbar: true
     debug_redirects: false
 

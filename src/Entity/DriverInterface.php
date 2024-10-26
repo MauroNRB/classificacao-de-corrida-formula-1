@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
-interface PilotInterface extends EntityBaseInterface
+use Doctrine\Common\Collections\Collection;
+
+interface DriverInterface extends EntityBaseInterface
 {
     /**
      * @return string
@@ -93,4 +95,29 @@ interface PilotInterface extends EntityBaseInterface
      * @param int $championships
      */
     public function setChampionships(int $championships);
+
+    /**
+     * @return int
+     */
+    public function getCarNumber(): int;
+
+    /**
+     * @param int $carNumber
+     */
+    public function setCarNumber(int $carNumber);
+
+    /**
+     * @return Collection<DriverDay>
+     */
+    public function getDriverDays(): Collection;
+
+    /**
+     * @param DriverDay $driverDay
+     */
+    public function addDriverDay(DriverDay $driverDay);
+
+    /**
+     * @param DriverDay $driverDay
+     */
+    public function removeDriverDay(DriverDay $driverDay);
 }

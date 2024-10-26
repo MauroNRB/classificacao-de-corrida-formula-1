@@ -59,13 +59,13 @@ class Team extends EntityBase implements TeamInterface
     protected $urlImage;
 
     /**
-     * @ORM\OneToMany(targetEntity=Pilot::class, mappedBy="team")
+     * @ORM\OneToMany(targetEntity=Driver::class, mappedBy="team")
      */
-    private $pilots;
+    private $drivers;
 
     public function __construct()
     {
-        $this->pilots = new ArrayCollection();
+        $this->drivers = new ArrayCollection();
     }
 
     public function getName(): string
@@ -177,32 +177,67 @@ class Team extends EntityBase implements TeamInterface
     }
 
     /**
-     * @return Collection<Pilot>
+     * @return Collection<Driver>
      */
-    public function getPilots(): Collection
+    public function getDrivers(): Collection
     {
-        return $this->pilots;
+        return $this->drivers;
     }
 
-    public function addPilot(Pilot $pilot): self
+    public function addDriver(Driver $driver): self
     {
-        if (!$this->pilots->contains($pilot)) {
-            $this->pilots[] = $pilot;
-            $pilot->setTeam($this);
+        if (!$this->drivers->contains($driver)) {
+            $this->drivers[] = $driver;
+            $driver->setTeam($this);
         }
 
         return $this;
     }
 
-    public function removePilot(Pilot $pilot): self
+    public function removeDriver(Driver $driver): self
     {
-        if ($this->pilots->removeElement($pilot)) {
-            // set the owning side to null (unless already changed)
-            if ($pilot->getTeam() === $this) {
-                $pilot->setTeam(null);
+        if ($this->drivers->removeElement($driver)) {
+            if ($driver->getTeam() === $this) {
+                $driver->setTeam(null);
             }
         }
 
         return $this;
+    }
+
+    public function getArrayEntity(): array
+    {
+        $arrDrivers = array();
+        $drivers = $this->getDrivers();
+        foreach ($drivers as $driver) {
+            if ($driver instanceof DriverInterface) {
+                $arrDrivers[] = array(
+                    'id' => $driver->getId(),
+                    'name' => $driver->getName(),
+                    'fullName' => $driver->getFullName(),
+                    'birth' => $driver->getBirth(),
+                    'urlImage' => $driver->getUrlImage(),
+                    'championships' => $driver->getChampionships(),
+                    'carNumber' => $driver->getCarNumber(),
+                    'victory' => $driver->getVictory(),
+                    'podium' => $driver->getPodium(),
+                    'polePosition' => $driver->getPolePosition(),
+                );
+            }
+        }
+
+        return array(
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'fullName' => $this->getFullName(),
+            'engine' => $this->getEngine(),
+            'yearFoundation' => $this->getYearFoundation(),
+            'victory' => $this->getVictory(),
+            'podium' => $this->getPodium(),
+            'polePosition' => $this->getPolePosition(),
+            'base' => $this->getBase(),
+            'urlImage' => $this->getUrlImage(),
+            'drivers' => $arrDrivers,
+        );
     }
 }

@@ -1,3 +1,74 @@
-index:
-    path: /
-    controller: App\Controller\MainController::indexAction
+team:
+    path: /teams/
+    methods: [GET]
+    controller: App\Controller\TeamController::indexAction
+
+team_create:
+    path: /teams/
+    methods: [POST]
+    controller: App\Controller\TeamController:createAction
+
+team_update:
+    path: /teams/{id}
+    methods: [PUT]
+    controller: App\Controller\TeamController:updateAction
+
+team_show:
+    path: /teams/{id}
+    methods: [GET]
+    controller: App\Controller\TeamController:showAction
+
+driver:
+    path: /drivers/
+    methods: [GET]
+    controller: App\Controller\DriverController::indexAction
+
+driver_create:
+    path: /drivers/
+    methods: [POST]
+    controller: App\Controller\DriverController:createAction
+
+driver_update:
+    path: /drivers/{id}
+    methods: [PUT]
+    controller: App\Controller\DriverController:updateAction
+
+driver_show:
+    path: /drivers/{id}
+    methods: [GET]
+    controller: App\Controller\DriverController:showAction
+
+grand_pix:
+    path: /grand-pixs/
+    methods: [GET]
+    controller: App\Controller\GrandPixController::indexAction
+
+grand_pix_create:
+    path: /grand-pixs/
+    methods: [POST]
+    controller: App\Controller\GrandPixController:createAction
+
+grand_pix_update:
+    path: /grand-pixs/{id}
+    methods: [PUT]
+    controller: App\Controller\GrandPixController:updateAction
+
+grand_pix_show:
+    path: /grand-pixs/{id}
+    methods: [GET]
+    controller: App\Controller\GrandPixController:showAction
+
+driver_day:
+    path: /driver-days/
+    methods: [GET]
+    controller: App\Controller\DriverDayController::indexAction
+
+driver_day_create:
+    path: /driver-days/
+    methods: [POST]
+    controller: App\Controller\DriverDayController:createAction
+
+driver_day_show:
+    path: /driver-days/{country}/{year}
+    methods: [GET]
+    controller: App\Controller\DriverDayController:showAction

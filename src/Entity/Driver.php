@@ -2,13 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\PilotRepository;
+use App\Repository\DriverRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=PilotRepository::class)
+ * @ORM\Entity(repositoryClass=DriverRepository::class)
  */
-class Pilot extends EntityBase implements PilotInterface
+class Driver extends EntityBase implements DriverInterface
 {
     /**
      * @ORM\Column(type="string", length=255)
@@ -26,7 +28,7 @@ class Pilot extends EntityBase implements PilotInterface
     private $birth;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Team::class, inversedBy="pilots")
+     * @ORM\ManyToOne(targetEntity=Team::class, inversedBy="drivers")
      */
     private $team;
 
@@ -59,6 +61,16 @@ class Pilot extends EntityBase implements PilotInterface
      * @ORM\Column(type="integer")
      */
     private $carNumber;
+
+    /**
+     * @ORM\OneToMany(targetEntity=DriverDay::class, mappedBy="driver")
+     */
+    private $driverDays;
+
+    public function __construct()
+    {
+        $this->driverDays = new ArrayCollection();
+    }
 
     public function getName(): string
     {
@@ -178,5 +190,48 @@ class Pilot extends EntityBase implements PilotInterface
         $this->polePosition = $polePosition;
 
         return $this;
+    }
+
+    public function getDriverDays(): Collection
+    {
+        return $this->driverDays;
+    }
+
+    public function addDriverDay(DriverDay $driverDay): self
+    {
+        if (!$this->driverDays->contains($driverDay)) {
+            $this->driverDays[] = $driverDay;
+            $driverDay->setDriver($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDriverDay(DriverDay $driverDay): self
+    {
+        if ($this->driverDays->removeElement($driverDay)) {
+            if ($driverDay->getDriver() === $this) {
+                $driverDay->setDriver(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getArrayEntity(): array
+    {
+        return array(
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'fullName' => $this->getFullName(),
+            'birth' => $this->getBirth(),
+            'urlImage' => $this->getUrlImage(),
+            'championships' => $this->getChampionships(),
+            'carNumber' => $this->getCarNumber(),
+            'victory' => $this->getVictory(),
+            'podium' => $this->getPodium(),
+            'polePosition' => $this->getPolePosition(),
+            'team' => $this->getTeam() instanceof TeamInterface ? $this->getTeam()->getArrayEntity() : array(),
+        );
     }
 }

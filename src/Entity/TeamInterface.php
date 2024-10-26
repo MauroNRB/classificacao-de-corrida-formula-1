@@ -97,17 +97,17 @@ interface TeamInterface extends EntityBaseInterface
     public function setUrlImage(string $urlImage);
 
     /**
-     * @return Collection<Pilot>
+     * @return Collection<Driver>
      */
-    public function getPilots(): Collection;
+    public function getDrivers(): Collection;
 
     /**
-     * @param Pilot $pilot
+     * @param Driver $driver
      */
-    public function addPilot(Pilot $pilot);
+    public function addDriver(Driver $driver);
 
     /**
-     * @param Pilot $pilot
+     * @param Driver $driver
      */
-    public function removePilot(Pilot $pilot);
+    public function removeDriver(Driver $driver);
 }
