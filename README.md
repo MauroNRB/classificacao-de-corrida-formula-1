@@ -28,3 +28,7 @@ symfony server:start
 ## Acessar sistema
 
 Através da URL: http://localhost:8000/
+
+
+## Vídeo de explicação
+https://www.youtube.com/watch?v=Nrlalmt72m8&ab_channel=zarolho87
