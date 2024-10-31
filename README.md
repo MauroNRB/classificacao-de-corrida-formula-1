@@ -1,5 +1,8 @@
 # Classificação de Corrida de Formula 1
 
+## Alunos:
+Mauro Ribeiro e Bernardo Michels
+
 ## Pré Requisitos
 MySQL: 5.7
 
